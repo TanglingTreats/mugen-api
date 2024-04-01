@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	_ "github.com/gin-gonic/gin"
+	_ "net/http"
+)
 
 func main() {
 	fmt.Println("hello")
