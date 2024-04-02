@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/cors"
+	"github.com/go-chi/render"
 )
 
 type challenge struct {
@@ -15,20 +18,26 @@ var text = "metaverse web3 NFT crypto decentralized meme stock stonk hodl ape Ga
 
 func main() {
 	fmt.Println("Starting RESTful service")
-	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:3000"}
 
-	router := gin.Default()
-	router.Use(cors.New(config))
+	router := chi.NewRouter()
 
-	router.GET("/challenges", getChallenge)
+	router.Use(middleware.RequestID)
+	router.Use(middleware.Logger)
+	router.Use(middleware.Recoverer)
 
-	router.Run(":8080")
+	router.Use(cors.Handler(cors.Options{
+		AllowedOrigins: []string{"http://localhost:3000"},
+	}))
+
+	router.Get("/challenges", getChallenge)
+
+	http.ListenAndServe(":8080", router)
 }
 
-func getChallenge(c *gin.Context) {
+func getChallenge(w http.ResponseWriter, r *http.Request) {
 	res := challenge{
 		Data: text,
 	}
-	c.IndentedJSON(http.StatusOK, res)
+
+	render.JSON(w, r, res)
 }
