@@ -107,7 +107,6 @@ func getChallenge(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data, err := io.ReadAll(resp.Body)
-	fmt.Println(string(data))
 
 	chatPromptRes := chatResponse{}
 	if err := json.Unmarshal(data, &chatPromptRes); err != nil {
