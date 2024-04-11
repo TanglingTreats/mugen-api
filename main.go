@@ -5,12 +5,15 @@ import (
 	"net/http"
 
 	"github.com/TanglingTreats/mugen-typer-api/challenges"
+	"github.com/TanglingTreats/mugen-typer-api/dotenv"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 )
 
 func main() {
+	dotenv.InitEnv()
+
 	fmt.Println("Starting RESTful service")
 	port := ":8080"
 
