@@ -1,3 +1,4 @@
+// "challenges" route
 package challenges
 
 import (
@@ -16,53 +17,6 @@ import (
 
 type challenge struct {
 	Data string `json:"data"`
-}
-
-type logProb struct {
-	Content struct {
-		Token       string   `json:"token"`
-		Logprob     int      `json:"logprob"`
-		Bytes       []int8   `json:"bytes"`
-		TopLogprobs []string `json:"top_logprobs"`
-	} `json:"content"`
-}
-
-type message struct {
-	Role    string `json:"role"`
-	Content string `json:"content"`
-}
-
-type choice struct {
-	Index     int      `json:"index"`
-	Msg       message  `json:"message"`
-	Logprobs  *logProb `json:"logprobs"`
-	FinReason string   `json:"finish_reason"`
-}
-
-type usage struct {
-	PromptTokens int `json:"prompt_tokens"`
-	ComplTokens  int `json:"completion_tokens"`
-	TotalTokens  int `json:"total_tokens"`
-}
-
-type chatResponse struct {
-	Id          string   `json:"id"`
-	Object      string   `json:"object"`
-	Created     int      `json:"created"`
-	Model       string   `json:"model"`
-	Choices     []choice `json:"choices"`
-	Usge        usage    `json:"usage"`
-	Fingerprint string   `json:"system_fingerprint"`
-}
-
-type prompt struct {
-	Role    string `json:"role"`
-	Content string `json:"content"`
-}
-
-type promptReq struct {
-	Model    string   `json:"model"`
-	Messages []prompt `json:"messages"`
 }
 
 var text = "metaverse web3 NFT crypto decentralized meme stock stonk hodl ape GameStop AMC Reddit Robinhood Dogecoin elon tesla Twitter Muskrat quiet quitting great resignation quiet firing layoff recession inflation cost of living supply chain chip shortage climate crisis heat wave drought fire season net zero green energy EV plant-based oat milk cauliflower gnocchi charcuterie grazing board cheugy cringe slay zaddy bussy thirst trap y'all cap no cap fr fr wig go off understood the assignment hot girl walk feral girl summer that's the tweet main character energy unalive sadfishing negging love-bombing gatekeeping cloutlighting sliving going goblin mode crisitunity ambient anxiety"

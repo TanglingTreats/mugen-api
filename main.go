@@ -41,10 +41,13 @@ func main() {
 	http.ListenAndServe(port, router)
 }
 
+// Route check for index route
 func routeCheck(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("OK"))
 }
 
+// Health check route
+// Return 200 OK
 func healthCheck(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("message: 'OK'"))
