@@ -3,3 +3,6 @@ build:
 
 run: build
 	@./mugen-api
+
+test:
+	@go test ./... -v
