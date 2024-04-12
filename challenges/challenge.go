@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/TanglingTreats/mugen-typer-api/dotenv"
 	"github.com/go-chi/chi/v5"
@@ -69,7 +70,9 @@ var text = "metaverse web3 NFT crypto decentralized meme stock stonk hodl ape Ga
 var chatEndpoint = "/chat/completions"
 
 // "global" http client
-var client = &http.Client{}
+var client = &http.Client{
+	Timeout: 10 * time.Second,
+}
 
 var chatPromptReq = promptReq{Model: "gpt-3.5-turbo"}
 var chatPrompt = prompt{Role: "user"}
@@ -101,11 +104,14 @@ func getChallenge(w http.ResponseWriter, r *http.Request) {
 	req.Header.Add("Authorization", "Bearer "+apiToken)
 	req.Header.Add("Content-Type", "application/json")
 
+	defer req.Body.Close()
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println(err)
 	}
 
+	// Close connection
+	defer resp.Body.Close()
 	data, err := io.ReadAll(resp.Body)
 
 	chatPromptRes := chatResponse{}

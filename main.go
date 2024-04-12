@@ -24,12 +24,18 @@ func main() {
 	router.Use(middleware.Recoverer)
 
 	router.Use(cors.Handler(cors.Options{
-		AllowedOrigins: []string{"http://localhost:3000"},
+		AllowedOrigins: []string{"https://mugentyper.com, https://www.mugentyper.com", "http://localhost:3000"},
 	}))
 
 	// Routes
 	router.Route("/challenges", challenges.Routes)
+	router.Get("/health", healthCheck)
 
 	fmt.Printf("Listening at %s\n", port)
 	http.ListenAndServe(port, router)
+}
+
+func healthCheck(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("message: 'OK'"))
 }
