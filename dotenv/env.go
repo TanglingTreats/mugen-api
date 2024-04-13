@@ -1,7 +1,6 @@
 package dotenv
 
 import (
-	"fmt"
 	"log"
 	"os"
 

@@ -10,6 +10,7 @@ RUN go mod download
 # Copy src
 COPY ./challenges/ ./challenges/
 COPY ./dotenv/ ./dotenv/
+COPY ./api/ ./api/
 
 COPY *.go ./
 
