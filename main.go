@@ -1,11 +1,12 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 
-	"github.com/TanglingTreats/mugen-typer-api/challenges"
-	"github.com/TanglingTreats/mugen-typer-api/dotenv"
+	"github.com/TanglingTreats/mugen-api/challenges"
+	"github.com/TanglingTreats/mugen-api/dotenv"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
@@ -15,7 +16,7 @@ func main() {
 	dotenv.InitEnv()
 
 	fmt.Println("Starting RESTful service")
-	port := ":8080"
+	listenAddr := flag.String("listenaddr", ":8080", "server address")
 
 	router := chi.NewRouter()
 
@@ -37,8 +38,8 @@ func main() {
 
 	router.Route("/challenges", challenges.Routes)
 
-	fmt.Printf("Listening at %s\n", port)
-	http.ListenAndServe(port, router)
+	fmt.Printf("Listening at %s\n", *listenAddr)
+	http.ListenAndServe(*listenAddr, router)
 }
 
 // Route check for index route

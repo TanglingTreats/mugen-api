@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TanglingTreats/mugen-typer-api/dotenv"
+	"github.com/TanglingTreats/mugen-api/dotenv"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
 )

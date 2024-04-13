@@ -1,4 +1,4 @@
-module github.com/TanglingTreats/mugen-typer-api
+module github.com/TanglingTreats/mugen-api
 
 go 1.22.1
 
