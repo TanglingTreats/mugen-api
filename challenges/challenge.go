@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math/rand"
 	"net/http"
 	"strings"
 	"time"
@@ -75,9 +76,20 @@ func getChallenge(w http.ResponseWriter, r *http.Request) {
 
 	chatResultData := chatPromptRes.Choices[0].Msg.Content
 	chatResultData = strings.ReplaceAll(chatResultData, ".", "")
+
+	// Randomize function
+	randomized := randomizeWords(chatResultData)
+
 	res := challenge{
-		Data: chatResultData,
+		Data: randomized,
 	}
 
 	render.JSON(w, r, res)
+}
+
+func randomizeWords(input string) string {
+	wordSlice := strings.Split(input, ", ")
+	rand.Shuffle(len(wordSlice), func(i, j int) { wordSlice[i], wordSlice[j] = wordSlice[j], wordSlice[i] })
+
+	return strings.Join(wordSlice, " ")
 }
