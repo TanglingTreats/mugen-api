@@ -10,10 +10,14 @@ import (
 )
 
 func main() {
-	dotenv.InitEnv()
+	// Set flags
+	env := flag.String("env", ".env", "env file to use")
+	listenAddr := flag.String("listenaddr", ":8080", "server address")
+	flag.Parse()
+
+	dotenv.InitEnv(*env)
 
 	fmt.Println("Starting RESTful service")
-	listenAddr := flag.String("listenaddr", ":8080", "server address")
 
 	server := api.NewServer(*listenAddr)
 

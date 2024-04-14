@@ -1,3 +1,4 @@
 mugen-api
 
 .env
+.env*.local

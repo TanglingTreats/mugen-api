@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/TanglingTreats/mugen-api/challenges"
+	"github.com/TanglingTreats/mugen-api/dotenv"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
@@ -21,7 +22,7 @@ func NewServer(listenAddr string) Server {
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 
-	allowedOrigins := []string{"https://mugentyper.com", "https://www.mugentyper.com", "http://localhost:3000"}
+	allowedOrigins := []string{dotenv.GetEnvVar("ALLOWED_ORIGIN")}
 
 	router.Use(cors.Handler(cors.Options{
 		AllowedOrigins: allowedOrigins,
