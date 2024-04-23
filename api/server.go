@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/TanglingTreats/mugen-api/challenges"
 	"github.com/TanglingTreats/mugen-api/dotenv"
@@ -22,7 +23,8 @@ func NewServer(listenAddr string) Server {
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 
-	allowedOrigins := []string{dotenv.GetEnvVar("ALLOWED_ORIGIN")}
+	envOrigins := dotenv.GetEnvVar("ALLOWED_ORIGIN")
+	allowedOrigins := strings.Split(envOrigins, " ")
 
 	router.Use(cors.Handler(cors.Options{
 		AllowedOrigins: allowedOrigins,
